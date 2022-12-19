@@ -11,6 +11,10 @@
 |
 */
 
+Broadcast::routes();
+
+Route::get('notifications', 'NotificationController@notifications')->name('notifications');
+
 Route::get('post/like/{id}', 'Likes\LikeController@create')->name('like.create');
 
 Route::resource('post', 'Posts\PostController');
