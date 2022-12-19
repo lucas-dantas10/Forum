@@ -79,9 +79,10 @@
         <main class="py-4">
             @yield('content')
         </main>
-
-        
-        <script src="{{ asset("js/app.js") }}"></script>
     </div>
+
+    {{-- ->SCRIPT --}}
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    
 </body>
 </html>

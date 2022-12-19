@@ -41,7 +41,7 @@
               <a href="{{ route('like.create', $post->id) }}" class="d-flex align-item center" id="link">               
               <i class="fa-regular fa-heart" id="cards"></i>
                 @foreach ($likes as $like)
-                    @if ($like->post_id == $post->id && $like->id == $post->id)
+                    @if ($like->post_id == $post->id && $like->id == $post->id && $like->stlike == 1)
                       <p>{{ count($likes) }}</p>
                     @endif
                 @endforeach
