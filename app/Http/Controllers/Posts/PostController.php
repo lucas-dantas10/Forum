@@ -27,16 +27,17 @@ class PostController extends Controller
      */
     public function index()
     {
-        $likes = $this->likes->all();
+        // $likes = $this->likes->all();
         // $postLike = DB::table('likes')
         //                 ->select('stlike', DB::raw('count(stlike)'))
         //                 ->where('post_id', 1);
                         
-        $posts = $this->post->paginate(7);
+        $posts = $this->post->with('like')->paginate(7);
+
+        // dd($posts);
 
         return view('posts.index', [
-            'posts' => $posts,
-            'likes' => $likes
+            'posts' => $posts
         ]);
     }
 

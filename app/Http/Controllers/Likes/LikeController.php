@@ -19,7 +19,7 @@ class LikeController extends Controller
 
     public function create($idPost)
     {
-        $like = $this->likes->firstOrCreate([
+        $like = $this->likes->create([
             'user_id' => auth()->user()->id,
             'post_id' => $idPost,
             'stlike'   => 1
