@@ -7,12 +7,11 @@
         </a>
 
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            {{ notifications }}
-            <!-- <notification 
+            <notification 
                 v-for="notification in notifications" 
                 :key="notification.id"
                 :notification="notification">            
-            </notification> -->
+            </notification>
 
             <a class="dropdown-item" href="#" @click.prevent="markAllAsRead">
                 Limpar Notificações
@@ -23,20 +22,29 @@
     
 </template>
 
+
 <script>
 
     export default {
-        created () {
-            this.$store.dispatch('loadNotification');
-        },
+
+        created() {
+            this.$store.dispatch('loadNotifications');
+        },  
 
         computed: {
-            notifications() {                
-                return this.$store.state.notifications.itens;
+            notifications() {
+                return this.$store.state.notifications.items;
+            }
+        },
+
+        methods: {
+            markAllAsRead() {
+                this.$store.dispatch('markAllAsRead');
             }
         }
     }
 </script>
+
 
 <style>
  #bell {
@@ -51,3 +59,4 @@
     color: black;
 }
 </style>
+

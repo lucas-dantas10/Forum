@@ -39,12 +39,10 @@
           <div class="d-flex align-items-start justify-content-between">
               <h5 class="card-title">{{ $post->title }}</h5>
               <a href="{{ route('like.create', $post->id) }}" class="d-flex align-item center" id="link">               
-              <i class="fa-regular fa-heart" id="cards"></i>
-                @foreach ($likes as $like)
-                    @if ($like->post_id == $post->id && $like->id == $post->id && $like->stlike == 1)
-                      <p>{{ count($likes) }}</p>
+                <i class="fa-regular fa-heart" id="cards"></i>
+                    @if ($post->like->isNotEmpty())
+                      <p>{{ $post->like->count() }}</p>
                     @endif
-                @endforeach
               </a>              
           </div>          
           <p class="card-text">{{ $post->body }}</p>

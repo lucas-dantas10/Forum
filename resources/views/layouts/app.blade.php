@@ -9,15 +9,25 @@
 
     <title>{{ config('app.name', 'Forum') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    {{-- SCRIPT --}}
+    <script>
+        window.Laravel = {!! json_encode([
+            'csrf'   => csrf_token(),
+            'pusher' => [
+                'key'     => config('broadcasting.connections.pusher.key'),
+                'cluster' => config('broadcasting.connections.pusher.options.cluster'),
+            ],
+            'user' => auth()->user(),
+        ]) !!}
+    </script>
+
 </head>
 <body>
     <div id="app">
@@ -49,9 +59,12 @@
                                 </li>
                             @endif
                         @else
+
+                            <notifications></notifications>
+                            
                             <li class="nav-item dropdown">
                                 <div class="d-flex align-items-center dropdown" >
-                                    <notifications></notifications>
+                                    
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         {{ Auth::user()->name }} <span class="caret"></span>
                                     </a>
