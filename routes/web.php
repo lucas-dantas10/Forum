@@ -1,17 +1,10 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Broadcast::routes();
+
+Route::put('notification-all-read', 'NotificationController@markAllAsRead')->name('notification.all.read');
+
+Route::put('notification-read', 'NotificationController@markAsRead')->name('notification.read');
 
 Route::get('notifications', 'NotificationController@notifications')->name('notifications');
 
