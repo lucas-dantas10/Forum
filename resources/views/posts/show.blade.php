@@ -2,10 +2,15 @@
 
 @section('content')
 
-<div class="container">
-    <h1 class="mb-4">{{ $post->title }}</h1>
+    <div class="container">
+        <h1 class="mb-4">{{ $post->title }}</h1>
 
-    <p>{{ $post->body }}</p>
-</div>
+        <p>{{ $post->body }}</p>
+
+        @include('posts.comment.comment')
+    </div>
+
+    
 
 @endsection
+

@@ -1,6 +1,13 @@
 <template>
     <li class="nav-item dropdown d-flex align-items-center justify-content-start">
-        <i class="fa-regular fa-bell" id="bell"></i>
+        <div v-if="notifications.length == 0">
+            <i class="fa-regular fa-bell" id="bell"></i>
+        </div>
+
+        <div v-else>
+            <i class="fa-regular fa-bell" id="bells"></i>
+        </div>
+        
         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             ({{ notifications.length }})<span class="caret"></span>
@@ -57,6 +64,14 @@
 
 #bell:hover {
     color: black;
+}
+
+#bells {
+    font-size: 25px;
+    margin-right: 1rem;
+    color: black;
+    transition: .5s ease-in-out;
+    cursor: pointer;
 }
 </style>
 
