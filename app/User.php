@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Comment;
 use App\Models\Likes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -46,5 +47,10 @@ class User extends Authenticatable
     public function likes()
     {
         return $this->hasMany(Likes::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

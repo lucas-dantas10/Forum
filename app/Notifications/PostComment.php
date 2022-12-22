@@ -2,26 +2,26 @@
 
 namespace App\Notifications;
 
-use App\Models\Likes;
+use App\Models\Comment;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class Notifications extends Notification implements ShouldQueue
+class PostComment extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    private $likes;
+    private $comment;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(Likes $likes)
+    public function __construct(Comment $comment)
     {
-        $this->likes = $likes;
+        $this->comment = $comment;
     }
 
     /**
@@ -44,8 +44,8 @@ class Notifications extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line("Seu post foi curtido.")
-                    ->action('Ver post', url('/post'))
+                    ->line('Seu post foi comentado.')
+                    ->action('Ver o comentário', url("forum/post/{$this->comment->id}"))
                     ->line('Obrigado por usar o Forum!');
     }
 
@@ -58,7 +58,7 @@ class Notifications extends Notification implements ShouldQueue
     public function toDatabase($notifiable)
     {
         return [
-            'like' => $this->likes->load('user'),
+            'comment' => $this->comment->load('user'),
         ];
     }
 
@@ -68,7 +68,7 @@ class Notifications extends Notification implements ShouldQueue
             'id' => $this->id,
             'read_at' => null,
             'data' => [
-                'like' => $this->likes->load('user'),
+                'comment' => $this->comment->load('user'),
             ]
         ];
     }

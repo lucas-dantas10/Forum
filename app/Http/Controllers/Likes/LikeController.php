@@ -17,17 +17,22 @@ class LikeController extends Controller
         $this->likes = $likes;
     }
 
-    public function create($idPost)
+    public function loadLikes(Request $request)
+    {
+        $like = $this->likes->where('post_id', $request->idPost)->get();
+
+        return response()->json($like);
+    }
+
+    public function likes(Request $request)
     {
         $like = $this->likes->create([
             'user_id' => auth()->user()->id,
-            'post_id' => $idPost,
+            'post_id' => $request->idPost,
             'stlike'   => 1
         ]);
 
         $author = $like->post->user;
         $author->notify(new Notifications($like));
-
-        return redirect()->back();
     }
 }

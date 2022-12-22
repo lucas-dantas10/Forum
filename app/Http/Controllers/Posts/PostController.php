@@ -6,18 +6,15 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Likes;
 use App\Models\Post;
-use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
 
     private $post;
-    private $likes;
 
-    public function __construct(Post $post, Likes $likes)
+    public function __construct(Post $post)
     {
         $this->post = $post;
-        $this->likes = $likes;
     }
 
     /**
@@ -27,14 +24,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        // $likes = $this->likes->all();
-        // $postLike = DB::table('likes')
-        //                 ->select('stlike', DB::raw('count(stlike)'))
-        //                 ->where('post_id', 1);
                         
         $posts = $this->post->with('like')->paginate(7);
-
-        // dd($posts);
 
         return view('posts.index', [
             'posts' => $posts
@@ -91,7 +82,9 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('posts.edit', [
+            'id' => $id
+        ]);
     }
 
     /**
@@ -103,17 +96,17 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->post->where('id', $id)->update([
+            'title' => $request->title,
+            'body' => $request->body,
+        ]);
+
+        return redirect('post');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    public function delete($id) {
+        $this->post->where('id', $id)->delete();
+
+        return redirect('post');
     }
 }
